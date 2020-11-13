@@ -43,8 +43,3 @@ BOOLEAN estCloture(COMPTE c)
 {
     return (c->estCloture);
 }
-void afficherStruct(COMPTE c)
-{
-    printf("----------------------------------------------------\n");
-    printf("solde:      %d\ntitulaire:  %s\ncloture:    %d\n", c->solde, c->titulaire, c->estCloture);
-}
