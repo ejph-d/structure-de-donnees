@@ -94,14 +94,65 @@ int test_estCloture(COMPTE c)
 
 int main()
 {
-    COMPTE c = malloc(sizeof(t_compte));
-    COMPTE c1 = malloc(sizeof(t_compte));
-    char *username = "Étienne DUVERNE";
 
-    if (c == NULL || c1 == NULL)
+    COMPTE c = malloc(sizeof(t_compte));
+    COMPTE c0 = malloc(sizeof(t_compte));
+    COMPTE c1 = malloc(sizeof(t_compte));
+    COMPTE c2 = malloc(sizeof(t_compte));
+    COMPTE c3 = malloc(sizeof(t_compte));
+    COMPTE c4 = malloc(sizeof(t_compte));
+    COMPTE c5 = malloc(sizeof(t_compte));
+    COMPTE c6 = malloc(sizeof(t_compte));
+    COMPTE c7 = malloc(sizeof(t_compte));
+    COMPTE c8 = malloc(sizeof(t_compte));
+    COMPTE c9 = malloc(sizeof(t_compte));
+    COMPTE c10 = malloc(sizeof(t_compte));
+
+    char *username = "Étienne DUVERNE";
+    char *tabUsername[] = {};
+    COMPTE tabCompte[NBCOMPTEMAX] = {};
+    int nbCompte = sizeof(tabUsername) / sizeof(tabUsername[0]);
+    if (c == NULL || c0 == NULL || c1 == NULL || c2 == NULL || c3 == NULL || c4 == NULL || c5 == NULL || c6 == NULL || c7 == NULL || c8 == NULL || c9 == NULL || c10 == NULL)
     {
         printf("Allocation impossible \n");
         exit(EXIT_FAILURE);
+    }
+
+    for (int i = 0; i < nbCompte; i++)
+    {
+        test_creer(tabCompte[i], tabUsername[i]);
+    }
+    void add_name(COMPTE accountNumber, char *username)
+    {
+        BOOLEAN alreadyTaken = FALSE;
+        for (int i = 0; i < nbCompte; i++)
+        {
+
+            if (username == tabCompte[i]->titulaire)
+            {
+                printf("username already taken\n");
+                alreadyTaken = TRUE;
+            }
+        }
+        if (alreadyTaken == FALSE)
+        {
+            test_creer(accountNumber, username);
+            nbCompte++;
+            printf("%d\n", nbCompte);
+            tabCompte[nbCompte - 1] = accountNumber;
+        }
+    }
+
+    add_name(c0, "Etienne DUVERNE");
+    add_name(c1, "Castorama");
+    add_name(c2, "Fabrice");
+    add_name(c3, "Francis");
+    add_name(c4, "Castorama");
+    
+    for (int i = 0; i < nbCompte; i++)
+    {
+        printf("%d, %d\n", i, nbCompte);
+        afficherStruct(tabCompte[i]);
     }
 
     /* on commence les tests */
@@ -179,11 +230,15 @@ int main()
         exit(EXIT_FAILURE);
     }
 
-
-
     printf("L'implementation du type abstrait est vérifiée.\n");
-    printf("Fin normale de la vérification de l'implémentation du type abstrait.\n"); */
+    printf("Fin normale de la vérification de l'implémentation du type abstrait.\n");
+
+    for (int i = 0; i < nbCompte; i++)
+    {
+        free(tabCompte[i]);
+    }
+
     free(c);
-    free(c1);
+
     return (EXIT_SUCCESS);
 }

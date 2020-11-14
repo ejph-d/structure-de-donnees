@@ -44,7 +44,7 @@ int cloturer(COMPTE c)
         c->estCloture = TRUE;
         return 1;
     }
-    else if (solde(c) != 0)
+    else 
     {
         return -1;
     }

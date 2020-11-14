@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #define FALSE 0      /* defini le mot clé FALSE sur 0 */
 #define TRUE 1       /* defini le mot clé TRUE sur 1 */
+#define NBCOMPTEMAX 11
 typedef int BOOLEAN; /* defini le type BOOLEEN */
 
 typedef struct s_compte /* type concret pour implémenter le type abstrait des comptes */
