@@ -26,7 +26,7 @@ COMPTE crediter(COMPTE c, int s);
 COMPTE debiter(COMPTE c, int s);
 
 /* cloturer un compte (c) (attention, ne fonctionne que si le solde est égale à 0 et si le compte n'est pas déjà cloturé) */
-COMPTE cloturer(COMPTE c);
+int cloturer(COMPTE c);
 
 /* permet d'afficher le nom du titulaire du compte et prend pour paramètre le nom du compte (c) */
 char *titulaire(COMPTE c);
@@ -36,5 +36,7 @@ int solde(COMPTE c);
 
 /* retourne si le compte est cloturé ou non */
 BOOLEAN estCloture(COMPTE c);
+
+
 
 #endif /* COMPTE__H__ */
