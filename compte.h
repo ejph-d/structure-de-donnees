@@ -17,13 +17,13 @@ typedef struct s_compte /* type concret pour implémenter le type abstrait des c
 typedef t_compte *COMPTE;
 
 /* création de la fonction creer qui prend pour parametre un nom de compte (c) et le nom d'un titulaire (p) */
-COMPTE creer(COMPTE c, char *p);
+int creer(COMPTE c, char *p);
 
 /* permet de crediter un compte existant (c), en ajoutant de l'argent au solde, on passe par la variable (s) */
-COMPTE crediter(COMPTE c, int s);
+int crediter(COMPTE c, int s);
 
 /* permet de crediter un compte existant (c), en retirant de l'argent au solde, on passe par la variable (s) */
-COMPTE debiter(COMPTE c, int s);
+int debiter(COMPTE c, int s);
 
 /* cloturer un compte (c) (attention, ne fonctionne que si le solde est égale à 0 et si le compte n'est pas déjà cloturé) */
 int cloturer(COMPTE c);

@@ -1,48 +1,53 @@
 #include "compte.h"
 
-COMPTE creer(COMPTE c, char *p)
+int creer(COMPTE c, char *p)
 {
+    
     c->solde = 0;
     c->titulaire = p;
     c->estCloture = FALSE;
-    return c;
+    return 1;
 }
 
-COMPTE crediter(COMPTE c, int s)
+int crediter(COMPTE c, int s)
 {
-    if (estCloture(c))
-    {
-        printf("IMPOSSIBLE CHACAL");
-    }
+    if (estCloture(c) == TRUE)
+        return 0; /* account is closed */
     else
     {
         c->solde = c->solde + s;
+        return 1;
     }
-
-    return c;
 }
 
-COMPTE debiter(COMPTE c, int s)
+int debiter(COMPTE c, int s)
 {
-    c->solde = c->solde - s;
-    return c;
+    if (estCloture(c) == TRUE)
+        return 0; /* account is closed */
+    else
+    {
+        c->solde = c->solde - s;
+    }
+    return 1;
 }
 
 int cloturer(COMPTE c)
 {
-    int success;
 
-    if (estCloture(c))
+    if (estCloture(c) == TRUE)
     {
-        return 0;
+        return 0; /* acount is already close */
     }
 
     else if (solde(c) == 0)
     {
+        c->estCloture = TRUE;
         return 1;
     }
-
-    return -1;
+    else if (solde(c) != 0)
+    {
+        return -1;
+    }
 }
 
 char *titulaire(COMPTE c)
@@ -62,7 +67,6 @@ BOOLEAN estCloture(COMPTE c)
 
 void afficherStruct(COMPTE c)
 {
-    printf("----------------------------------------------------\n");
     printf("solde:      %d\ntitulaire:  %s\ncloture:    %d\n", c->solde, c->titulaire, c->estCloture);
     printf("----------------------------------------------------\n");
 }
