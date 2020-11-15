@@ -94,7 +94,7 @@ int test_estCloture(COMPTE c)
 
 int main()
 {
-
+    /* on alloue de la mémoire à chaque structure, la taille de la mémoire allouée est la taille de la mémoire de la strucure */
     COMPTE c = malloc(sizeof(t_compte));
     COMPTE c0 = malloc(sizeof(t_compte));
     COMPTE c1 = malloc(sizeof(t_compte));
@@ -108,20 +108,25 @@ int main()
     COMPTE c9 = malloc(sizeof(t_compte));
     COMPTE c10 = malloc(sizeof(t_compte));
 
-    char *username = "Étienne DUVERNE";
     char *tabUsername[] = {};
-    COMPTE tabCompte[NBCOMPTEMAX] = {};
+    COMPTE tabCompte[NBCOMPTEMAX] = {c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10};
+
+    /* calcul du nombre de compte créé. */
     int nbCompte = sizeof(tabUsername) / sizeof(tabUsername[0]);
-    if (c == NULL || c0 == NULL || c1 == NULL || c2 == NULL || c3 == NULL || c4 == NULL || c5 == NULL || c6 == NULL || c7 == NULL || c8 == NULL || c9 == NULL || c10 == NULL)
+
+    /* test pour voir si l'allocation de la mémoire est OK*/
+    for (int i = 0; i < NBCOMPTEMAX; i++)
     {
-        printf("Allocation impossible \n");
-        exit(EXIT_FAILURE);
+        if (tabCompte[i] == NULL)
+        {
+            printf("Allocation impossible \n");
+            exit(EXIT_FAILURE);
+        }
     }
 
-    for (int i = 0; i < nbCompte; i++)
-    {
-        test_creer(tabCompte[i], tabUsername[i]);
-    }
+
+
+    /* cration de la fonction add_name qui test un titulaire pour verifier qu'iel n'a pas déjà un compte. Puis l'ajoute dans notre tabeau d'username*/
     void add_name(COMPTE accountNumber, char *username)
     {
         BOOLEAN alreadyTaken = FALSE;
@@ -138,28 +143,24 @@ int main()
         {
             test_creer(accountNumber, username);
             nbCompte++;
-            printf("%d\n", nbCompte);
             tabCompte[nbCompte - 1] = accountNumber;
         }
     }
-
-    add_name(c0, "Etienne DUVERNE");
+    /* Ajout de compte (la fonction add_name creer un compte en verifiant que le titulaire n'a pas deja un compte) */
+    add_name(c0, "Étienne DUVERNE");
     add_name(c1, "Castorama");
     add_name(c2, "Fabrice");
     add_name(c3, "Francis");
-    add_name(c4, "Castorama");
-    
-    for (int i = 0; i < nbCompte; i++)
-    {
-        printf("%d, %d\n", i, nbCompte);
-        afficherStruct(tabCompte[i]);
-    }
+    add_name(c4, "castafior");
+
+
 
     /* on commence les tests */
 
     /* on creer un compte */
+    char *username = tabUsername[0]; /* tout les tests se feront avec le premier compte créé.*/
     int success = 0;
-    success += test_creer(c, username);
+    success += test_creer(c0, username);
 
     if (success != 1)
     {
@@ -169,8 +170,8 @@ int main()
 
     /* on creer un compte puis on le credite */
     success = 0;
-    success += test_creer(c, username);
-    success += test_crediter(c, 100);
+    success += test_creer(c0, username);
+    success += test_crediter(c0, 100);
 
     if (success != 2)
     {
@@ -180,8 +181,8 @@ int main()
 
     /* on creer un compte puis on le debite */
     success = 0;
-    success += test_creer(c, username);
-    success += test_debiter(c, 100);
+    success += test_creer(c0, username);
+    success += test_debiter(c0, 100);
 
     if (success != 2)
     {
@@ -191,8 +192,8 @@ int main()
 
     /* on creer un compte puis on le cloture */
     success = 0;
-    success += test_creer(c, username);
-    success += test_cloturer(c);
+    success += test_creer(c0, username);
+    success += test_cloturer(c0);
 
     if (success != 2)
     {
@@ -202,8 +203,8 @@ int main()
 
     /* on creer un compte puis on verifie son solde */
     success = 0;
-    success += test_creer(c, username);
-    success += test_solde(c);
+    success += test_creer(c0, username);
+    success += test_solde(c0);
     if (success != 2)
     {
         printf("erreur 5\n");
@@ -212,8 +213,8 @@ int main()
 
     /* on creer un compte puis on verifie son titulaire */
     success = 0;
-    success += test_creer(c, username);
-    success += test_titulaire(c, username);
+    success += test_creer(c0, username);
+    success += test_titulaire(c0, username);
     if (success != 2)
     {
         printf("erreur 6\n");
@@ -222,17 +223,19 @@ int main()
 
     /* on creer un compte puis on verifie son état */
     success = 0;
-    success += test_creer(c, username);
-    success += test_estCloture(c);
+    success += test_creer(c0, username);
+    success += test_estCloture(c0);
     if (success != 2)
     {
         printf("erreur 7\n");
         exit(EXIT_FAILURE);
     }
 
+    /* si toutes les conditions ont été respectées avant, le programme affiche ceci, c'est la validation de l'imprementation*/
     printf("L'implementation du type abstrait est vérifiée.\n");
     printf("Fin normale de la vérification de l'implémentation du type abstrait.\n");
 
+    /* on libère la mémoire à la fin du programme*/
     for (int i = 0; i < nbCompte; i++)
     {
         free(tabCompte[i]);

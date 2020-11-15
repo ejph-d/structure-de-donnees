@@ -1,4 +1,4 @@
-#ifndef COMPTE__H__
+#ifndef COMPTE__H__ /* permet d'éviter la redefinition des definition déjà existantes */
 #define COMPTE__H__
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,7 +17,7 @@ typedef struct s_compte /* type concret pour implémenter le type abstrait des c
 
 typedef t_compte *COMPTE;
 
-/* création de la fonction creer qui prend pour parametre un nom de compte (c) et le nom d'un titulaire (p) */
+/* création de la fonction creer qui prend pour parametre un pointeur sur la structure compte (c) et le nom d'un titulaire (p) */
 int creer(COMPTE c, char *p);
 
 /* permet de crediter un compte existant (c), en ajoutant de l'argent au solde, on passe par la variable (s) */
@@ -32,7 +32,7 @@ int cloturer(COMPTE c);
 /* permet d'afficher le nom du titulaire du compte et prend pour paramètre le nom du compte (c) */
 char *titulaire(COMPTE c);
 
-/*  retourne le solde du compte (c) */
+/*  retourne la valeur du solde de la structure (c) */
 int solde(COMPTE c);
 
 /* retourne si le compte est cloturé ou non */
